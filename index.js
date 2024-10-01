@@ -20,7 +20,7 @@ const conterreducer = (state = initialState , action) => {
         case "INCREMENT_COUNTER":
             return {
                 ...state, // immer
-                counter: counter +1 ,
+                counter: state.counter +1 ,
             };
             default:
                 return state;
@@ -30,3 +30,8 @@ const conterreducer = (state = initialState , action) => {
 //store
 
 const store = createStore(conterreducer)
+
+console.log(store.getState())
+
+store.dispatch(incrementCounter())
+console.log(store.getState())
