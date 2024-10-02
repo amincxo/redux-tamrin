@@ -14,21 +14,35 @@ function decrementCounter () {
     }
 }
 
-function incrementCounterByAmount (amount =1) {
+function incrementCounterByAmount (amount = 1) {
     return {
         type: "DECREMENT_COUNTER_BY_AMOUNT",
         payload: amount,
     }
 }
 
-const initialState = {
+const initialCounterState = {
     counter: 0,
-    number : 5,
 };
+
+const initialNumberState = {
+    number : 5,
+}
+
+
+const numberReducer = (state = initialNumberState , action) => {
+    switch(action.type){
+        case "INCREMENT_nUMBER":
+            return {
+                ...state,
+                number : state.number + 1,
+            };
+    }
+}
 
 //reducer
 
-const conterreducer = (state = initialState , action) => {
+const conterreducer = (state = initialCounterState , action) => {
     switch(action.type){
         case "INCREMENT_COUNTER":
             return {
@@ -49,6 +63,12 @@ const conterreducer = (state = initialState , action) => {
                 return state;
     }
 };
+
+function incrementNumber () {
+    return {
+        type: "INCREMENT_NUMBER"
+    };
+}
 
 //store
 
