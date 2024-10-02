@@ -1,5 +1,7 @@
 //import { createStore } from "redux";
-const createStore = require("redux").createStore
+const redux = require("redux")
+const createStore = redux.createStore
+const combineReducers = redux.combineReducers;
 
 //action
 function incrementCounter() {
@@ -32,17 +34,19 @@ const initialNumberState = {
 
 const numberReducer = (state = initialNumberState , action) => {
     switch(action.type){
-        case "INCREMENT_nUMBER":
+        case "INCREMENT_NUMBER":
             return {
                 ...state,
                 number : state.number + 1,
             };
+        default:
+            return state
     }
 }
 
 //reducer
 
-const conterreducer = (state = initialCounterState , action) => {
+const conterReducer = (state = initialCounterState , action) => {
     switch(action.type){
         case "INCREMENT_COUNTER":
             return {
@@ -71,8 +75,11 @@ function incrementNumber () {
 }
 
 //store
-
-const store = createStore(conterreducer)
+const rootReducer = combineReducers ({
+    counter: conterReducer,
+    number: numberReducer,
+})
+const store = createStore(rootReducer)
 
 console.log(store.getState())
 
@@ -82,4 +89,5 @@ store.dispatch(incrementCounterByAmount(100))
 console.log(store.getState())
 
 store.dispatch(decrementCounter())
+store.dispatch(incrementNumber())
 console.log(store.getState())
