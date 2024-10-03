@@ -2,6 +2,10 @@
 const redux = require("redux")
 const createStore = redux.createStore
 const combineReducers = redux.combineReducers;
+const applyMiddleware = redux.applyMiddleware;
+
+const reduxLogger = require("redux-logger");
+const logger = reduxLogger.createLogger();
 
 //action
 function incrementCounter() {
@@ -79,15 +83,14 @@ const rootReducer = combineReducers ({
     counter: conterReducer,
     number: numberReducer,
 })
-const store = createStore(rootReducer)
+const store = createStore(rootReducer , applyMiddleware(logger));
 
 console.log(store.getState())
 
 store.dispatch(incrementCounter())
 store.dispatch(incrementCounter())
-store.dispatch(incrementCounterByAmount(100))
-console.log(store.getState())
+store.dispatch(incrementCounterByAmount(5))
 
 store.dispatch(decrementCounter())
 store.dispatch(incrementNumber())
-console.log(store.getState())
+
